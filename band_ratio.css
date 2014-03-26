@@ -89,7 +89,7 @@
       height: 100px;
       width: 100px;
       /*background-color: red;*/
-      background: url(/media/images/24_empty_trash.png) no-repeat;
+      background: url(24_empty_trash.png) no-repeat;
       position: absolute;
       right: -20px;
       top: 10px;

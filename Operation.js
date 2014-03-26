@@ -86,6 +86,7 @@ Operation.prototype.getFreqs = function() {
    if (!this.digit_reg.test(this.bin_2)) {
       freqs = freqs.concat(this.freq_reg.test(this.bin_2) ? this.bin_2 : this.bin_2.getFreqs());
    }
+   console.log('after stupid');
    return freqs;
 
 };

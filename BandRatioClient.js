@@ -179,13 +179,16 @@
    // utility functions - maybe abstract these to different class?
 
    BandRatioClient.prototype.generateWCPS = function() {
+      console.log('generating WCPS');
       var query = 'for ';
       var contrast = $('#_contrast').val();
       if (contrast.length === 0) {
          contrast = '255';
       }
       if (this.operations.length === 1) {
+         console.log('inside ops');
          var freqs = this.removeDupes(this.operations[0].getFreqs());
+         console.log('after remove dupes');
          var temp_freqs = [];
          for (var i = 0, len = freqs.length; i < len; i++) {
             temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
