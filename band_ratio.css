@@ -1,0 +1,267 @@
+ #main {
+      background-color: grey;
+      width: 90%;
+      height: 600px;
+      margin: 0 auto;
+      padding: 0px;
+   }
+
+   #left_cont {
+      float: left;
+      width: 10%;
+      position: relative;
+      top: 100px;
+      text-align: center;
+   }
+
+   div.chiclet {
+
+      margin: 0 auto;
+      width: 80px;
+      height: 20px;
+      padding: 0;
+      text-align: center;
+      line-height: 20px;
+      margin: 5px;
+      display: inline-block;
+      /* border-radius */
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      /* box-shadow */
+      -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+      -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+      box-shadow: rgba(0,0,0,0.7) 0px 1px 3px, rgba(0,0,0,0.7) 0px -1px 3px;
+   }
+
+   #left_cont.chiclet {
+      display: inline-block;
+      text-align: center;
+   }
+   .rrs412 {
+      background: #4400DB;
+      color: white;
+   }
+   .rrs443 {
+      background: #000FFF;
+      color: white;
+   }
+   .rrs490 {
+      background: #00FFFF;
+   }
+   .rrs510 {
+      background: #00FF00;
+   }
+   .rrs555 {
+      background: #A3FF00;
+   }
+   .rrs670 {
+      background: #FF0000;
+   }
+   #top_cont {
+      height: 100px;
+      width: 100%;
+      background-color: lightgrey;
+   }
+   .top_inline {
+      display: inline-block;
+   }
+   #drop_panel {
+      height: 500px;
+      width: 60%;
+      background-color: white;
+      /*display:inline-block;*/
+      margin: 0px;
+      padding: 0px;
+      float: left;
+      position: relative;
+   }
+   #display_img {
+      width: 30%;
+      height: 500px;
+      margin: 0px;
+      padding: 0px;
+      background-color: lightblue;
+      /*display:inline-block;*/
+      float: right;
+   }
+   #bin {
+      height: 100px;
+      width: 100px;
+      /*background-color: red;*/
+      background: url(/media/images/24_empty_trash.png) no-repeat;
+      position: absolute;
+      right: -20px;
+      top: 10px;
+   }
+   .chiclet .ui-selected {
+      background: #F39814;
+      color: white;
+   }
+   #blah {
+      height: 100px;
+      width: 100px;
+      background-color: lightpink;
+   }
+
+   .plus_holder {
+      width: 150px;
+      height: 100px;
+      background-color: lightyellow;
+      text-align: center;
+      border-radius: 12px;
+      display: inline-block;
+   }
+   .plus_holder .drop_plus_1 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 12px 12px 0 0;
+   }
+   .plus_holder .drop_plus_1:hover {
+      background-color: lightgrey;
+   }
+   .plus_holder .drop_plus_2 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 0 0 12px 12px;
+   }
+   .plus_holder .drop_plus_2:hover {
+      background-color: lightgrey;
+   }
+
+   .divide_holder {
+      width: 150px;
+      height: 100px;
+      background-color: lightyellow;
+      text-align: center;
+      border-radius: 12px;
+      display: inline-block;
+   }
+   .divide_holder .drop_divide_1 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 12px 12px 0 0;
+   }
+   .divide_holder .drop_divide_1:hover {
+      background-color: lightgrey;
+   }
+   .divide_holder .drop_divide_2 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 0 0 12px 12px;
+   }
+   .divide_holder .drop_divide_2:hover {
+      background-color: lightgrey;
+   }
+
+   .minus_holder {
+      width: 150px;
+      height: 100px;
+      background-color: lightyellow;
+      text-align: center;
+      border-radius: 12px;
+      display: inline-block;
+   }
+   .minus_holder .drop_minus_1 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 12px 12px 0 0;
+   }
+   .minus_holder .drop_minus_1:hover {
+      background-color: lightgrey;
+   }
+   .minus_holder .drop_minus_2 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 0 0 12px 12px;
+   }
+   .minus_holder .drop_minus_2:hover {
+      background-color: lightgrey;
+   }
+
+   .multiply_holder {
+      width: 150px;
+      height: 100px;
+      background-color: lightyellow;
+      text-align: center;
+      border-radius: 12px;
+      display: inline-block;
+   }
+   .multiply_holder .drop_multiply_1 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 12px 12px 0 0;
+   }
+   .multiply_holder .drop_multiply_1:hover {
+      background-color: lightgrey;
+   }
+   .multiply_holder .drop_multiply_2 {
+      width: 100%;
+      height: 45px;
+      /*background-color: lightpink;*/
+      border-radius: 0 0 12px 12px;
+   }
+   .multiply_holder .drop_multiply_2:hover {
+      background-color: lightgrey;
+   }
+   .holder {
+      background-color:white;
+      border: 1px solid black;
+      height:112px;
+   }
+   .drop_1 {
+      background-color:#AAAAAA;
+   }
+   .drop_2 {
+      background-color:#AAAAAA;
+   }
+   .drop_item {
+      margin: 10px;
+   }
+   .captive_op {
+      display: block;
+      padding-top: 5px;
+      color: white;
+   }
+   .captive_op:hover {
+      color: black;
+   }
+
+   .wcps_response {
+      height: 100%;
+      width: 100%;
+   }
+
+   #wcps_text {
+      font-family: Courier;
+   }
+   div.scaleOn {
+      /*General*/
+      transform: scale(0.5, 0.5);
+      /*Firefox*/
+      -moz-transform: scale(0.5, 0.5);
+      /*Microsoft Internet Explorer*/
+      -ms-transform: scale(0.5, 0.5);
+      /*Chrome, Safari*/
+      -webkit-transform: scale(0.5, 0.5);
+      /*Opera*/
+      -o-transform: scale(0.5, 0.5);
+   }
+
+   .hide {
+      display: none;
+   }
+
+   .ui-slider {
+      width: 400px;
+      display: inline-block;
+      margin-left: 25px;
+      float: right;
+   }

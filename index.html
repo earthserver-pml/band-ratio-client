@@ -1,0 +1,125 @@
+<html>
+<head>
+   <title>A test page for th eband ratio client</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/smoothness/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+<script src="Operation.js"></script>
+<script type="text/javascript" src="BandRatioClient.js"></script>
+<link rel="stylesheet" href="band_ratio.css" >
+<script type="text/javascript">
+   $(document).ready(function(){
+   br = new BandRatioClient({});
+});
+</script>
+</head>
+<body>
+<div id="main">
+   <div id="left_cont">
+      <div id="freqs" class="top_inline">
+         <p>
+            Choose light frequency
+         </p>
+         <div class="chiclet rrs412" id="Rrs_412">
+            Rrs 412
+         </div>
+         <div class="chiclet rrs443" id="Rrs_443">
+            Rrs 443
+         </div>
+         <div class="chiclet rrs490" id="Rrs_490">
+            Rrs 490
+         </div>
+         <div class="chiclet rrs510" id="Rrs_510">
+            Rrs 510
+         </div>
+         <div class="chiclet rrs555" id="Rrs_555">
+            Rrs 555
+         </div>
+         <div class="chiclet rrs670" id="Rrs_670">
+            Rrs 670
+         </div>
+      </div>
+   </div>
+   <div id="top_cont">
+
+      <div id="math_ops" class="top_inline">
+         <p>
+            Choose Math operator
+         </p>
+         <div class="chiclet op" id="plus">
+            +
+         </div>
+         <div class="chiclet op" id="minus">
+            -
+         </div>
+         <div class="chiclet op" id="divide">
+            /
+         </div>
+         <div class="chiclet op" id="multiply">
+            *
+         </div>
+         <div class="chiclet num" id="number">
+            <span>const</span>
+         </div>
+         <div class="chiclet num" id="max">
+            <span>max()</span>
+         </div>
+         <div class="chiclet" id="min">
+            <span>min()</span>
+         </div>
+         <div class="chiclet" id="avg">
+            <span>avg()</span>
+         </div>
+         <div class="chiclet" id="median">
+            <span>median()</span>
+         </div>
+      </div>
+        <button id="show_query">
+         Show Query
+      </button>
+      <button id="run_query">
+         Run Query
+      </button>
+      <input type="text" id="_contrast" name="_contrast" placeholder="contrast" style="width:70px;"/>
+
+      <div id="contrast"></div>
+   </div>
+   <div id="drop_panel">
+      <div id="bin">
+
+      </div>
+      <h4 id="drop_text">Drop elements on to this panel</h4>
+
+   </div>
+   <div id="display_img">
+      <img class="wcps_response" />
+   </div>
+   <div id="wcps_out">
+      <p id="wcps_text"></p>
+   </div>
+</div>
+<div id="plus_temp" class="plus_holder drop_item hide holder" data-cont="plus_cont">
+   <div class="drop_plus_1 drop_1" data-type="plus_1" data-bin="1"></div>
+   <span class="plus_icon">+</span>
+   <div class="drop_plus_2 drop_2" data-type="plus_2" data-bin="2"></div>
+</div>
+<div id="minus_temp" class="minus_holder drop_item hide holder">
+   <div class="drop_minus_1 drop_1" data-type="minus_1" data-bin="1"></div>
+   <span class="minus_icon">-</span>
+   <div class="drop_minus_2 drop_2" data-type="minus_2" data-bin="2"></div>
+</div>
+<div id="divide_temp" class="divide_holder drop_item hide holder">
+   <div class="drop_divide_1 drop_1" data-type="divide_1" data-bin="1"></div>
+   <span class="minus_icon">/</span>
+   <div class="drop_divide_2 drop_2" data-type="divide_2" data-bin="2"></div>
+</div>
+<div id="multiply_temp" class="multiply_holder drop_item hide holder">
+   <div class="drop_multiply_1 drop_1" data-type="multiply_1" data-bin="1"></div>
+   <span class="multiply_icon">*</span>
+   <div class="drop_multiply_2 drop_2" data-type="multiply_2" data-bin="2"></div>
+</div>
+</body>
+
+
