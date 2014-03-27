@@ -130,6 +130,7 @@
 
    };
 
+   // the below functions contain a non-elegant error handeling solution that needs looking at in more detail
    BandRatioClient.prototype.queryClick = function() {
 
       var WCPS = this.generateWCPS();
