@@ -79,6 +79,7 @@ Operation.prototype.rootRender = function() {
 
 Operation.prototype.getFreqs = function() {
    console.log(this);
+   console.log(this.digit_reg.test(this.bin_1));
    var freqs = [];
    if (!this.digit_reg.test(this.bin_1)) {
       freqs = freqs.concat(this.freq_reg.test(this.bin_1) ? this.bin_1 : this.bin_1.getFreqs());

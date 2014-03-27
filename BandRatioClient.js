@@ -57,6 +57,12 @@
       this.runQueryEL = $('#run_query');
       this.showQueryEL = $('#show_query');
 
+      // WCPS query templates
+      this.min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
+      this.max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
+      this.avgQuery = 'for a in (CCI_Rrs_FREQ_monthly) return encode( ( (float)add((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) / count(( (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) ), "csv")';
+
+
       this.initialise();
 
    };
@@ -133,6 +139,7 @@
    };
    BandRatioClient.prototype.showQuery = function() {
       var WCPS = this.generateWCPS();
+      console.log('khkjhkjh');
       var t_div = $(document.createElement('div'));
       t_div.html(WCPS);
       $(t_div).dialog({
@@ -190,13 +197,13 @@
          var freqs = this.removeDupes(this.operations[0].getFreqs());
          console.log('after remove dupes');
          var temp_freqs = [];
-         for (var i = 0, len = freqs.length; i < len; i++) {
-            temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
-         }
-         query += temp_freqs.join(',');
-         query += 'return encode(';
-         query += this.operations[0].rootRender();
-         query += '* ' + contrast + ', "PNG", "NODATA=0")';
+         // for (var i = 0, len = freqs.length; i < len; i++) {
+         //    temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
+         // }
+         // query += temp_freqs.join(',');
+         // query += 'return encode(';
+         // query += this.operations[0].rootRender();
+         // query += '* ' + contrast + ', "PNG", "NODATA=0")';
       } else {
          console.log('Unable to create WCPS as no elements have been created');
       }
@@ -219,11 +226,11 @@
    };
 
    BandRatioClient.prototype.getMedian = function(freq, elem) {
-      var min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
-      var max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
+      // var min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
+      // var max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
 
-      min_query = min_query.replace('FREQ', freq);
-      max_query = max_query.replace('FREQ', freq);
+      var min_query = this.min_query.replace('FREQ', freq);
+      var max_query = this.max_query.replace('FREQ', freq);
       console.log('####', elem);
       $.when($.ajax({
          type: 'POST',
@@ -279,11 +286,11 @@
 
    BandRatioClient.prototype.getAvg = function(freq, elem) {
 
-      var avgQuery = 'for a in (CCI_Rrs_FREQ_monthly) return encode( ( (float)add((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) / count(( (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) ), "csv")',
-         query;
+      //var avgQuery = 'for a in (CCI_Rrs_FREQ_monthly) return encode( ( (float)add((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) / count(( (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) ), "csv")',
+      var query;
 
       if (this.testFreq(freq)) {
-         query = avgQuery.replace('FREQ', freq);
+         query = this.avgQuery.replace('FREQ', freq);
          console.log(query);
          $.ajax({
             url: this.petascopeURL_POST,
@@ -324,18 +331,18 @@
 
 
    BandRatioClient.prototype.getMinMax = function(minmax, frq, elem) {
-      var min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
-      var max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
+      //var min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
+      //var max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
       var query;
 
       if (minmax.indexOf('min') === -1 && minmax.indexOf('max') === -1) {
          return "error";
       }
       if (minmax === 'min') {
-         query = min_query.replace('FREQ', frq);
+         query = this.min_query.replace('FREQ', frq);
       }
       if (minmax === 'max') {
-         query = max_query.replace('FREQ', frq);
+         query = this.max_query.replace('FREQ', frq);
       }
 
 
