@@ -133,12 +133,26 @@
    BandRatioClient.prototype.queryClick = function() {
 
       var WCPS = this.generateWCPS();
-      var src_url = (this.petascopeURL_GET + WCPS).replace(/\+/g, '%2b');
-      this.wcpsResponseEL.attr('src', src_url);
+      if (WCPS.indexOf('ERROR') != -1) {
+         WCPS = WCPS.split(' - ')[1];
+
+         console.log('No freqs so showing error box');
+         var t_div = $(document.createElement('div'));
+         t_div.html(WCPS);
+         $(t_div).dialog({
+            content: WCPS
+         });
+      } else {
+         var src_url = (this.petascopeURL_GET + WCPS).replace(/\+/g, '%2b');
+         this.wcpsResponseEL.attr('src', src_url);
+      }
 
    };
    BandRatioClient.prototype.showQuery = function() {
       var WCPS = this.generateWCPS();
+      if (WCPS.indexOf('ERROR') != -1) {
+         WCPS = WCPS.split(' - ')[1];
+      }
       console.log('khkjhkjh');
       var t_div = $(document.createElement('div'));
       t_div.html(WCPS);
@@ -195,15 +209,18 @@
       if (this.operations.length === 1) {
          console.log('inside ops');
          var freqs = this.removeDupes(this.operations[0].getFreqs());
+         if (freqs.length === 0) {
+            return "ERROR - No Frequencies used in algorithm.";
+         }
          console.log('after remove dupes');
          var temp_freqs = [];
-         // for (var i = 0, len = freqs.length; i < len; i++) {
-         //    temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
-         // }
-         // query += temp_freqs.join(',');
-         // query += 'return encode(';
-         // query += this.operations[0].rootRender();
-         // query += '* ' + contrast + ', "PNG", "NODATA=0")';
+         for (var i = 0, len = freqs.length; i < len; i++) {
+            temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
+         }
+         query += temp_freqs.join(',');
+         query += 'return encode(';
+         query += this.operations[0].rootRender();
+         query += '* ' + contrast + ', "PNG", "NODATA=0")';
       } else {
          console.log('Unable to create WCPS as no elements have been created');
       }
@@ -211,10 +228,13 @@
    };
 
    BandRatioClient.prototype.removeDupes = function(array) {
-      for (var b = array.sort(), i = b.length, l = b[--i], r = [l]; i--;)
-         if (b[i] !== l)
-            r.push(l = b[i]);
-      return r;
+      if (array.length > 0) {
+         for (var b = array.sort(), i = b.length, l = b[--i], r = [l]; i--;)
+            if (b[i] !== l)
+               r.push(l = b[i]);
+         return r;
+      }
+      return array;
    };
 
 
