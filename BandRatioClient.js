@@ -4,6 +4,8 @@
 
    var BandRatioClient = window.BandRatioClient = function(conf) {
 
+      this.allowedFreqs = ['412', '443', '490', '510', '555', '670'];
+
 
       //setup basic darg.drop options for later use
       this.baseDragOptions = {
@@ -16,14 +18,8 @@
 
       this.dragOptionsPostDrop = {
          containment: '#drop_panel',
-         //revert : 'invalid',
          zIndex: 300000,
-         // drag: function(ev, ui) {
-         //    $('.ui-selected').css({
-         //       'top': ui.helper.css('top'),
-         //       'left': ui.helper.css('left')
-         //    });
-         // }
+
       };
 
       this.dropOptions = {
@@ -138,11 +134,8 @@
          WCPS = WCPS.split(' - ')[1];
 
          console.log('No freqs so showing error box');
-         var t_div = $(document.createElement('div'));
-         t_div.html(WCPS);
-         $(t_div).dialog({
-            content: WCPS
-         });
+         this.errorDialog(WCPS);
+
       } else {
          var src_url = (this.petascopeURL_GET + WCPS).replace(/\+/g, '%2b');
          this.wcpsResponseEL.attr('src', src_url);
@@ -155,13 +148,19 @@
          WCPS = WCPS.split(' - ')[1];
       }
       console.log('khkjhkjh');
-      var t_div = $(document.createElement('div'));
-      t_div.html(WCPS);
-      $(t_div).dialog({
-         content: WCPS
-      });
+      this.errorDialog(WCPS);
 
    };
+
+   BandRatioClient.prototype.errorDialog = function(msg) {
+
+      var t_div = $(document.createElement('div'));
+      t_div.html('<h4>' + msg + '</h4>');
+      $(t_div).dialog();
+
+   };
+
+
    BandRatioClient.prototype.setup_binds = function() {
 
       // basic handler for dealing with anything dropped on design pane
@@ -240,8 +239,10 @@
 
 
    BandRatioClient.prototype.testFreq = function(freq) {
-      // TBD : just returns true for now
-      console.log('test freq against available freqs');
+      console.log('testing ' + freq + ' against available freqs');
+      if (this.allowedFreqs.indexOf(freq) === -1) {
+         return false;
+      }
       return true;
 
    };
@@ -327,8 +328,8 @@
 
 
       } else {
-         return;
-      }
+            this.errorDialog('Incorrect frequency given. Please enter just the number, do not include the "Rrs_"');
+         }
 
 
    };
@@ -414,6 +415,17 @@
    };
 
    BandRatioClient.prototype.handleDrop = function(ev, ui) {
+
+      // make the drop panel selectable so we can delete more than one node at a time
+      // needs the drag behaviour refining   
+      this.dropPanel.selectable({
+         filter: ':not(h4)',
+         stop: function(ev, ui) {
+            $('.ui-selected', this).each(function() {
+               console.log(this);
+            });
+         }
+      });
 
       switch ($(ui.helper).context['id']) {
          case 'plus':
@@ -583,7 +595,7 @@
             .removeClass('ui-state-disabled')
             .data('freq', uiDraggableCtx.attr('id'));
          $(evTarget.parent()).data('box_' + evTarget.data('index'), evTarget.data('freq'));
-         this.getAvg(freq, evTarget);
+         this.getAvg(freq, evTarget, uiHelper);
          console.log('dropped avg() for freq', freq);
 
 
