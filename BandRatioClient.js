@@ -2,7 +2,7 @@
    'use strict';
 
 
-   var BandRatioClient = window.BandRatioClient = function(conf) {
+   var BandRatioClient = global.BandRatioClient = function(conf) {
 
       this.allowedFreqs = ['412', '443', '490', '510', '555', '670'];
 
