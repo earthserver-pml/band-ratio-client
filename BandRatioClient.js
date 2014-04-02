@@ -4,7 +4,7 @@
 
    var BandRatioClient = global.BandRatioClient = function(conf) {
 
-      this.allowedFreqs = ['412', '443', '490', '510', '555', '670'];
+      this.allowedFreqs = conf.allowed_freqs || ['412', '443', '490', '510', '555', '670'];
 
 
       //setup basic darg.drop options for later use
@@ -41,22 +41,22 @@
       this.eventObj = {};
       // list of operations that have been dropped 
       this.operations = [];
-      this.petascopeURL_GET = 'http://earthserver.pml.ac.uk/petascope?query=';
-      this.petascopeURL_POST = 'http://earthserver.pml.ac.uk/petascope/wcps';
+      this.petascopeURL_GET = conf.petascopeURL_GET || 'http://earthserver.pml.ac.uk/petascope?query=';
+      this.petascopeURL_POST = conf.petascopeURL_POST || 'http://earthserver.pml.ac.uk/petascope/wcps';
 
 
 
       // cache jQuery selectors
-      this.dropPanel = $('#drop_panel');
-      this.wcpsResponseEL = $('.wcps_response');
-      this.dropTextEL = $('#drop_text');
-      this.runQueryEL = $('#run_query');
-      this.showQueryEL = $('#show_query');
+      this.dropPanel = conf.drop_panel ? $(conf.drop_panel) : $('#drop_panel');
+      this.wcpsResponseEL = conf.wcps_response_element ? $(conf.wcps_response_element) : $('.wcps_response');
+      this.dropTextEL = conf.drop_text_element ? $(conf.drop_text_element) : $('#drop_text');
+      this.runQueryEL = conf.run_query_element ? $(conf.run_query_element) : $('#run_query');
+      this.showQueryEL = conf.show_query_element ? $(conf.show_query_element) : $('#show_query');
 
       // WCPS query templates
-      this.min_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
-      this.max_query = 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
-      this.avgQuery = 'for a in (CCI_Rrs_FREQ_monthly) return encode( ( (float)add((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) / count(( (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) ), "csv")';
+      this.min_query = conf.min_query || 'for a in (CCI_Rrs_FREQ_monthly) return encode ( min(a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)]), "csv")';
+      this.max_query = conf.max_query || 'for a in (CCI_Rrs_FREQ_monthly) return encode( max((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))), "csv")';
+      this.avg_query = conf.avg_query || 'for a in (CCI_Rrs_FREQ_monthly) return encode( ( (float)add((a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] * (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) / count(( (a[x:"CRS:1"(1799:2220),y:"CRS:1"(240:660),t(4)] != 9.96921e+36))) ), "csv")';
 
 
       this.initialise();
@@ -312,7 +312,7 @@
       var query;
 
       if (this.testFreq(freq)) {
-         query = this.avgQuery.replace('FREQ', freq);
+         query = this.avg_query.replace('FREQ', freq);
          console.log(query);
          $.ajax({
             url: this.petascopeURL_POST,
