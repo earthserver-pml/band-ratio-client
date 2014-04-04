@@ -394,7 +394,7 @@
       $(this.eventObj).trigger('band_ratio.freq_dropped', [$($(elem).parent()).attr('id'), {
          'bin': $(elem).data('bin'),
          'type': 'min',
-         'value': resp
+         'value': (+resp).toFixed(6)
       }]);
 
 
